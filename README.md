@@ -45,27 +45,27 @@ CREATE TABLE spotify (
 ##  Data analysis 
 
 #  1) Retrieve the names of all tracks that have more than 1 billion streams.
-    ''' sql
+   ```sql
    SELECT Track FROM spotify
    WHERE Stream > 1000000000;
 #  2)List all albums along with their respective artists.
-     ''' sql
+     ```sql
       Select DISTINCT Album,Artist from spotify
 	  ORDER BY 1;
 # 3) Get the total number of comments for tracks where licensed = TRUE.
-    ''' sql
+    ```sql
      SELECT SUM(Comments) as Total_comments
 	 FROM spotify
 	 WHERE Licensed = 'true'
 	 ;
 # 4) Find all tracks that belong to the album type single.
-      ''' sql
+     ```sql
      Select track from spotify
 	 WHERE album_type ILIKE'single'
 	 ;
 	
 # 5) Count the total number of tracks by each artist.
-     ''' sql
+    ```sql
        SELECT
 	    artist,
 		count(*) as total_no_songs
@@ -75,7 +75,7 @@ CREATE TABLE spotify (
 
 
 #  6) Calculate the average danceability of tracks in each album.
-    ''' sql
+   ```sql
     SELECT 
 	  album,
 	  avg(danceability) as avg_danceability
@@ -84,7 +84,7 @@ CREATE TABLE spotify (
 	  ORDER BY 2 DESC
      
 #    7) Find the top 5 tracks with the highest energy values.
-      ''' sql
+      ```sql
       SELECT * FROM spotify;
 	  SELECT 
 	  track,
@@ -95,7 +95,7 @@ CREATE TABLE spotify (
 	  LIMIT 5
 	  
 # 8) List all tracks along with their views and likes where official_video = TRUE.
-      ''' sql
+     ```sql
          SELECT 
 		 track,
 		 sum(views) as total_views ,
@@ -106,7 +106,7 @@ CREATE TABLE spotify (
 		 ORDER BY 2 DESC
 		 
 #   9) For each album, calculate the total views of all associated tracks.
-     ''' sql
+   ```sql
       SELECT 
 	   album,
 	   track,
@@ -115,7 +115,7 @@ CREATE TABLE spotify (
 	   GROUP BY 1,2
 	   ORDER BY 3 DESC
 # 10) Retrieve the track names that have been streamed on Spotify more than YouTube.
-    ''' sql
+    ```sql
      SELECT * FROM (
   SELECT 
     track,
@@ -129,7 +129,7 @@ WHERE streamed_on_spotify > streamed_on_youtube
   AND streamed_on_youtube <> 0;
 
   # 11) Find the top 3 most-viewed tracks for each artist using window functions.
-       ''' sql
+       ```sql
       WITH ranking_artist
 	  AS
 	  (SELECT 
@@ -145,7 +145,7 @@ WHERE streamed_on_spotify > streamed_on_youtube
 	  WHERE rank<=3
 	  
 # 12) Write a query to find tracks where the liveness score is above the average.
-      ''' sql
+     ```sql
        SELECT
 	   track,
 	   artist
@@ -155,7 +155,7 @@ WHERE streamed_on_spotify > streamed_on_youtube
 	   
 	  
 #  13) Use a WITH clause to calculate the difference between the highest and lowest energy values for tracks in each album.
-      ''' sql
+     ```sql
        WITH cte
 	   AS
 	   (SELECT
@@ -170,6 +170,39 @@ WHERE streamed_on_spotify > streamed_on_youtube
 	   highest_energy-lowest_energy as energy_diff
 	   FROM cte
 	   ORDER BY 2 DESC
+
+
+   ## FINDINGS AND CONCLUSIONS
+   # 1) Tracks with more than 1 billion streams are the most popular globally.
+
+   # 2) Most songs are released as singles, not part of full albums.
+
+   # 3) Every artist has 3 main songs that get the most views.
+
+  # 4) Songs with official videos get more views and likes.
+
+ # 5) Some albums have much higher total views than others.
+
+# 6) Many songs are streamed more on Spotify than on YouTube.
+
+# 7) Top songs and albums have high danceability and energy.
+
+# 8) Some songs feel more live, based on their liveness score.
+
+# 9) Albums with a big energy range offer different moods.
+
+# 10) Some artists have released a lot more songs than others.
+
+
+
+
+
+
+
+
+
+
+
 
   
 
